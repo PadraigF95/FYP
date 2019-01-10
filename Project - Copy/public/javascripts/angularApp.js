@@ -21,12 +21,12 @@ app.config(function($routeProvider) {
 
         .when('/games', {
             templateUrl : 'pages/games.ejs',
-            controller : 'gamecontroller'
+            controller : 'gamescontroller'
         })
 
         .when('/profile', {
              templateUrl: 'pages/profile.ejs',
-            controller: 'gamecontroller'
+            controller: 'gamescontroller'
         });
 
 

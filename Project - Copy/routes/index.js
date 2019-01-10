@@ -3,7 +3,8 @@ var router = express.Router();
 var User = require('../models/users');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-var passport = require ('passport');
+//var passport = require ('passport');
+var port = process.env.port || 3000;
 
 mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
@@ -106,7 +107,7 @@ router.get('/profile', function(req, res){
         }
 
         return res.status(200).send('This is working as intended');
-})
+});
 
 
     router.get('/logout', function (req, res){
@@ -116,9 +117,7 @@ router.get('/profile', function(req, res){
 
     });
 
-    router.get('/', function(req, res){
-        res.render('/#/', { username: req.body.username});
-    });
+
 
 
 
