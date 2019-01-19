@@ -5,11 +5,10 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 var bcrypt = require('bcryptjs');
-
 module.exports = function(passport){
 
     passport.use(new LocalStrategy(function(username, password, done){
-        //Match username
+       // Match username
         let query ={email:email};
         User.findOne(query, function(err, user) {
 

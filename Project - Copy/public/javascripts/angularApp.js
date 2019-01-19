@@ -20,14 +20,19 @@ app.config(function($routeProvider) {
         })
 
         .when('/games', {
-            templateUrl : 'pages/games.ejs',
+            templateUrl : 'view/games.ejs',
             controller : 'gamescontroller'
         })
 
         .when('/profile', {
              templateUrl: 'pages/profile.ejs',
             controller: 'gamescontroller'
-        });
+        })
+
+        .when('/settings', {
+        templateUrl: 'pages/settings.ejs',
+        controller: 'gamescontroller'
+         });
 
 
 });
