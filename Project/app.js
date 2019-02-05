@@ -37,7 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash());
 app.use(session({
     secret: 'gtfhdyjhgfjdhtxjuyu',
     resave: true,
@@ -48,6 +47,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

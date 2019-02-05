@@ -191,27 +191,28 @@ router.post('/forgot1', function(req, res, next) {
             });
         },
         function(token, user, done) {
-
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
-                port: 25,
+                port: 587,
                 secure: false,
                 auth: {
-                        user: 'Padraigf95@gmail.com',
-                        pass: "ultimateteam"
+
+                    user: 'padraigf95@gmail.com',
+                    pass: 'ultimateteam'
 
 
-                    },
+                },
+                tls: {
+                    rejectUnathorized: false
+                }
+            });
 
-                    tls:{
-                          rejectUnathorized: false
-                    }
-                });
+
 
 
             var mailOptions = {
                 to: user.email,
-                from: '"Padraig Foran" <Padraigf95@gmail.com' ,
+                from: '"Padraig Foran" <padraigf95@gmail.com' ,
                 subject: 'Node.js Password Reset',
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -219,12 +220,14 @@ router.post('/forgot1', function(req, res, next) {
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
 
-                transporter.sendMail(mailOptions, function(err) {
-                    if (err) {
+            transporter.sendMail(mailOptions, function(err) {
 
-                        return console.log(err);
-                    }
-            });
+                     console.log('mail sent');
+                     req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                     done(err, 'done');
+                });
+
+
         }
     ], function(err) {
         if (err) return next(err);
@@ -234,14 +237,16 @@ router.post('/forgot1', function(req, res, next) {
 
 
 router.get('/reset/:token', function(req, res) {
-    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function (err, user) {
         if (!user) {
             req.flash('error', 'Password reset token is invalid or has expired.');
-            return res.redirect('/forgot');
+            return res.redirect('#/forgot1');
         }
         res.render('reset', {token: req.params.token});
     });
+
 });
+
 
 router.post('/reset/:token', function(req, res) {
     async.waterfall([
@@ -251,8 +256,7 @@ router.post('/reset/:token', function(req, res) {
                     req.flash('error', 'Password reset token is invalid or has expired.');
                     return res.redirect('back');
                 }
-                if(req.body.password === req.body.confirm) {
-                    user.setPassword(req.body.password, function(err) {
+                        user.password = req.body.password;
                         user.resetPasswordToken = undefined;
                         user.resetPasswordExpires = undefined;
 
@@ -261,54 +265,46 @@ router.post('/reset/:token', function(req, res) {
                                 done(err, user);
                             });
                         });
-                    })
-                } else {
-                    req.flash("error", "Passwords do not match.");
-                    return res.redirect('back');
-                }
-            });
-        },
-
-        function(token, user, done) {
-
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                port: 25,
-                secure: false,
-                auth: {
-                    user: 'Padraigf95@gmail.com',
-                    pass: "ultimateteam"
-
-
+                    });
                 },
+        function(user, done) {
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        port: 587,
+        secure: false,
+        auth: {
 
-                tls:{
-                    rejectUnathorized: false
-                }
-            });
+            user: 'padraigf95@gmail.com',
+            pass: 'ultimateteam'
 
 
-            var mailOptions = {
-                to: user.email,
-                from: '"Padraig Foran" <Padraigf95@gmail.com' ,
-                subject: 'Node.js Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                    'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-            };
-
-            transporter.sendMail(mailOptions, function(err) {
-                if (err) {
-
-                    return console.log(err);
-                }
-            });
+        },
+        tls: {
+            rejectUnathorized: false
         }
-    ], function(err) {
-        if (err) return next(err);
-        res.redirect('/#/');
     });
+
+
+
+
+    var mailOptions = {
+        to: user.email,
+        from: '"Padraig Foran" <padraigf95@gmail.com' ,
+        subject: 'Your password has been changed',
+        text:  'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+    };
+
+
+    transporter.sendMail(mailOptions, function(err) {
+        req.flash('success', 'Success! Your password has been changed.');
+        done(err);
+
+    });
+}
+], function(err) {
+    if (err) return next(err);
+    res.redirect('/#/');
+});
 });
 
 
