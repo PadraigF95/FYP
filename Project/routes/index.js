@@ -7,23 +7,113 @@ var async = require('async');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var crypto = require('crypto');
-var flash = require('express-flash');
-var xoauth2 = require('xoauth2');
+//var flash = require('connect-flash');
+//var xoauth2 = require('xoauth2');
 var passport = require ('passport');
+//var api = require('./config/api');
 var LocalStrategy = require('passport-local').Strategy;
-var port = process.env.port || 3000;
+//var USER_KEY = '47a6def808445c928fc853ff4dc8b30d';
+var axios = require('axios');
+
+
+//axios({
+   // url: "https://api-v3.igdb.com/search",
+   // method: 'POST',
+    //headers: {
+       // 'Accept': 'application/json',
+       // 'user-key': '47a6def808445c928fc853ff4dc8b30d'
+   // },
+   // data: "fields alternative_name,character,collection,company,description,game,name,person,platform,popularity,published_at,test_dummy,theme;"
+//})
+   // .then(response => {
+      //  console.log(response.data);
+   // })
+  //  .catch(err => {
+       // console.error(err);
+   // });
+
+
+
 
 mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
 
+
+
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
 
 
-    res.render('index', { title: 'Hello World', user: req.user});
+
+    axios({
+        url: "https://api-v3.igdb.com/games/",
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'user-key': '47a6def808445c928fc853ff4dc8b30d'
+        },
+        data: "fields age_ratings,aggregated_rating,cover,genres.name,name,popularity,screenshots,summary,release_dates;"
+
+
+    })
+
+
+        .then(function(response)  {
+            console.log(response.data);
+            res.render('index', { title: 'Hello World', user: req.user, data: response.data});
+
+
+
+
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+
+});
+
+router.post('/', function(req, res, next) {
+
+
+
+    axios({
+        url: "https://api-v3.igdb.com/games/",
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'user-key': '47a6def808445c928fc853ff4dc8b30d'
+        },
+        data: "fields age_ratings,aggregated_rating,cover,genres.name,name,popularity,screenshots,summary,release_dates;"
+
+
+    })
+
+
+        .then(function(response)  {
+            console.log(response.data);
+            res.render('index', { title: 'Hello World', user: req.user, response:response.data});
+
+
+
+
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+
 });
 
 
+
+
+
+
+router.get('/register1', function(req, res) {
+
+    res.render('#/register1');
+});
 
 
 
@@ -70,7 +160,7 @@ router.post('/register1', function(req, res) {
 
 router.get('/login', function(req, res) {
 
-    res.render('/login');
+    res.render('#/login');
 });
 
 
@@ -198,7 +288,7 @@ router.post('/forgot1', function(req, res, next) {
                 auth: {
 
                     user: 'padraigf95@gmail.com',
-                    pass: 'ultimateteam'
+                    pass: 'Padraigf95//'
 
 
                 },
@@ -275,7 +365,7 @@ router.post('/reset/:token', function(req, res) {
         auth: {
 
             user: 'padraigf95@gmail.com',
-            pass: 'ultimateteam'
+            pass: 'padraigf95123'
 
 
         },
@@ -307,6 +397,152 @@ router.post('/reset/:token', function(req, res) {
 });
 });
 
+router.get('/forgotusername', function(req, res) {
+    res.render('#/forgotusername', {
+        user: req.user
+    });
+});
+
+router.post('/forgotusername', function(req, res, next) {
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function(token, done) {
+            User.findOne({ email: req.body.email }, function(err, user) {
+                if (!user) {
+                    req.flash('error', 'No account with that email address exists.');
+                    return res.redirect('/#/forgotusername');
+                }
+
+                user.resetUsernameToken = token;
+                user.resetUsernameExpires = Date.now() + 3600000; // 1 hour
+
+                user.save(function(err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function(token, user, done) {
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                port: 587,
+                secure: false,
+                auth: {
+
+                    user: 'padraigf95@gmail.com',
+                    pass: 'padraigf95123'
+
+
+                },
+                tls: {
+                    rejectUnathorized: false
+                }
+            });
+
+
+
+
+            var mailOptions = {
+                to: user.email,
+                from: '"Padraig Foran" <padraigf95@gmail.com' ,
+                subject: 'Node.js Username Reset',
+                text: 'You are receiving this because you (or someone else) have requested the reset of the username for your account.\n\n' +
+                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                    'http://' + req.headers.host + '/resetusername/' + token + '\n\n' +
+                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+
+            transporter.sendMail(mailOptions, function(err) {
+
+                console.log('mail sent');
+                req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                done(err, 'done');
+            });
+
+
+        }
+    ], function(err) {
+        if (err) return next(err);
+        res.redirect('/#/');
+    });
+});
+
+router.get('/resetusername/:token', function(req, res) {
+    User.findOne({resetUsernameToken: req.params.token, resetUsernameExpires: {$gt: Date.now()}}, function (err, user) {
+        if (!user) {
+            req.flash('error', 'Password reset token is invalid or has expired.');
+            return res.redirect('#/forgotusername');
+        }
+        res.render('resetusername', {token: req.params.token});
+    });
+
+});
+
+
+router.post('/resetusername/:token', function(req, res) {
+    async.waterfall([
+        function (done) {
+            User.findOne({
+                resetUsernameToken: req.params.token,
+                resetUsernameExpires: {$gt: Date.now()}
+            }, function (err, user) {
+                if (!user) {
+                    req.flash('error', 'Username reset token is invalid or has expired.');
+                    return res.redirect('back');
+                }
+                user.username = req.body.username;
+                user.resetUsernameToken = undefined;
+                user.resetUsernameExpires = undefined;
+
+                user.save(function (err) {
+                    req.logIn(user, function (err) {
+                        done(err, user);
+                    });
+                });
+            });
+        },
+        function (user, done) {
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                port: 587,
+                secure: false,
+                auth: {
+
+                    user: 'padraigf95@gmail.com',
+                    pass: 'padraigf95123'
+
+
+                },
+                tls: {
+                    rejectUnathorized: false
+                }
+            });
+
+
+            var mailOptions = {
+                to: user.email,
+                from: '"Padraig Foran" <padraigf95@gmail.com',
+                subject: 'Your Username has been changed',
+                text: 'This is a confirmation that the username for your account ' + user.email + ' has just been changed.\n'
+            };
+
+
+            transporter.sendMail(mailOptions, function (err) {
+                req.flash('success', 'Success! Your username has been changed.');
+                done(err);
+
+            });
+        }
+    ], function (err) {
+        if (err) return next(err);
+        res.redirect('/#/');
+    });
+
+});
 
 
 module.exports = router;

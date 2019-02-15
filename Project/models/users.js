@@ -26,6 +26,13 @@ var UserSchema = new mongoose.Schema({
     resetPasswordExpires: {
         type:Date
     },
+    resetUsernameToken:{
+        type:String
+    },
+
+    resetUsernameExpires:{
+        type:Date
+    },
 
     isAdmin:{
         type:Boolean,

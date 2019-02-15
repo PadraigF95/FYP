@@ -5,14 +5,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var flash = require('express-flash');
+var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require ('passport');
-
-
-
-
-
+var port = process.env.PORT || 8000;
 
 var mongoose = require('mongoose');
 
@@ -50,6 +46,8 @@ app.use(passport.session());
 app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+
 
 
 // Make our db accessible to our router
@@ -92,4 +90,6 @@ app.use(function(err, req, res, next) {
 
 
 
+
+app.listen(port);
 module.exports = app;
