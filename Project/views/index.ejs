@@ -1,5 +1,4 @@
-
-<html ng-app="GamesWebApp" >
+<html ng-app="GamesWebApp" xmlns:src="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" href="#" />
   <title>Games Web App</title>
@@ -76,12 +75,20 @@
   <div class="container mx-auto flex flex-col md:flex-row">
     <div class="w-full md:w-1/4 -mt-16">
 
-
-
-
-      <li><%=games.data%></li>
-
+      <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p> <%= games[0].name %></p>
+      <img src="<%= games[1].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p><%= games[1].name %></p>
+      <img src="<%= games[2].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p><%= games[2].name %></p>
+      <img src="<%= games[3].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p><%= games[3].name %></p>
+      <img src="<%= games[4].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p><%= games[4].name %></p>
+      <img src="<%= games[5].cover.url.replace('t_thumb', 't_cover_big') %>" />
+      <p><%= games[5].name %></p>
     </div>
+
 
   </div>
 

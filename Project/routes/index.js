@@ -14,7 +14,8 @@ var passport = require ('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var USER_KEY = '47a6def808445c928fc853ff4dc8b30d';
 var axios = require('axios');
-
+const flatted = require('flatted');
+var request = require('request');
 
 //axios({
    // url: "https://api-v3.igdb.com/search",
@@ -39,40 +40,32 @@ mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
 
 
+var options = {
+
+    url: 'https://api-v3.igdb.com/games/?fields=name,cover.url,genres.name; sort popularity desc',
+    headers: {
+        "user-key":"47a6def808445c928fc853ff4dc8b30d"
+    },
+    dataType:"jsonp",
+};
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-
-
-   axios({
-        url: "https://api-v3.igdb.com/games/",
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'user-key': '47a6def808445c928fc853ff4dc8b30d'
-        },
-        data: "fields age_ratings,aggregated_rating,cover.url,genres.name,name,popularity,screenshots,summary,release_dates;"
-
-
-    })
-
-
-        .then(games =>  {
-            console.log(JSON.stringify(games.data));
-
+    request(options, (error, response) => {
+        if (error) {
+            res.sendStatus(504);
+        } else {
+            let games = JSON.parse(response.body);
+            console.log(response.data);
             res.render('index', { title: 'Hello World', user: req.user, games:games});
 
 
 
-
-        })
-        .catch(err => {
-            console.error(err);
-        });
+        }
+    })
+})
 
 
-});
 
 
 
