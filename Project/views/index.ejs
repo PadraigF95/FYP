@@ -34,7 +34,7 @@
 
 <form action='/games/:id' method="GET" class="form-inline">
   <div class="form-group">
-      <input type="text" type="text" id="query" name="query" placeholder="Search.." class="form-control">
+      <input type="text" name="search" placeholder="search term" >
       <input type ="submit" value="search" class="btn btn-default">
   </div>
 
@@ -43,6 +43,7 @@
       <li><a href="#/"> Home</a></li>
       <li><a href="#games"> Games</a></li>
       <li><a href="#PriceChecker">Price Checker</a></li>
+        <li><a href="#News">News</a></li>
       <li><a href="#forums"> Forums</a></li>
       <% if(user){ %>
       <li><a href="#/"></a><%= user.username%></li>
@@ -95,86 +96,26 @@
       </a>
     </div>
 
-      <div class="column">
-        <a href ="#/games/<%= games[1].id%>">
-      <img src="<%= games[1].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[1].name %></p>
-          <p>Rating: <%=games[1].aggregated_rating%></p>
-        <p>Genre: <%= games[1].genres[0].name %></p>
-        </a>
+      <div class="column" >
+          <a href ="#/games/<%= games[1].id%>">
+
+
+              <p> <%= games[1].name %></p>
+              <p>Rating: <%=games[1].aggregated_rating%></p>
+              <p>Genre:  <%= games[0].genres[0].name %></p>
+
+
+
+          </a>
       </div>
 
-        <div class="column">
-          <a href ="#/games/<%= games[2].id%>">
-      <img src="<%= games[2].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[2].name %></p>
-            <p>Rating: <%=games[2].aggregated_rating%></p>
-      <p>Genre: <%= games[2].genres[0].name %></p>
-          </a>
-        </div>
 
-          <div class="column">
-            <a href ="#/games/<%= games[3].id%>">
-      <img src="<%= games[3].cover.url.replace('t_thumb', 't_cover_big') %>" />
-              <p>Rating: <%=games[3].aggregated_rating%></p>
 
-      <p>Genre: <%= games[3].genres[0].name %></p>
-              <p>Rating: <%=games[3].aggregated_rating%></p>
-            </a>
-          </div>
 
-            <div class="column">
-              <a href ="#/games/<%= games[4].id%>">
-      <img src="<%= games[4].cover.url.replace('t_thumb', 't_cover_big') %>" />
-
-      <p><%= games[4].name %></p>
-                <p>Rating: <%=games[4].aggregated_rating%></p>
-
-      <p>Genre: <%= games[4].genres[0].name %></p>
-              </a>
-            </div>
-
-    </div>
+  </div>
 </a>
   <div class="row1">
 
-
-    <div class="column">
-      <img src="<%= games[5].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p> <%= games[5].name %></p>
-      <p>Rating: <%=games[5].aggregated_rating%></p>
-      <p>Genre:  <%= games[5].genres[0].name %></p>
-    </div>
-
-    <div class="column">
-      <img src="<%= games[6].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[6].name %></p>
-      <p>Rating: <%=games[6].aggregated_rating%></p>
-      <p>Genre: <%= games[6].genres[0].name %></p>
-    </div>
-
-    <div class="column">
-      <img src="<%= games[6].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[6].name %></p>
-      <p>Rating: <%=games[6].aggregated_rating%></p>
-      <p>Genre: <%= games[6].genres[0].name %></p>
-    </div>
-
-    <div class="column">
-
-      <img src="<%= games[8].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[8].name %></p>
-      <p>Rating: <%=games[8].aggregated_rating%></p>
-      <p>Genre: <%= games[8].genres[0].name %></p>
-      </a>
-    </div>
-
-    <div class="column">
-      <img src="<%= games[9].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p><%= games[9].name %></p>
-      <p>Rating: <%=games[9].aggregated_rating%></p>
-      <p>Genre: <%= games[9].genres[0].name %></p>
-    </div>
 
 
 

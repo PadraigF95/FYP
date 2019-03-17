@@ -64,7 +64,7 @@ body {
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
-  width: 100%;
+  width: 25%;
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
@@ -108,4 +108,18 @@ a {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
+}
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+}
+
+.edit-review-form{
+  display: none;
+}
+
+.clear-rating{
+  display: block;
 }

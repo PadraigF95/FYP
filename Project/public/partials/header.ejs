@@ -1,0 +1,39 @@
+nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+<div class="container">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/"><i class="fa fa-pied-piper-alt fa-lg" style="color: white;"></i> Games Web App</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-left">
+
+
+        <input type="text" placeholder="Search..">
+
+        <li><a href="#/"> Home</a></li>
+        <li><a href="#games"> Games</a></li>
+        <li><a href="#PriceChecker">Price Checker</a></li>
+        <li><a href="#forums"> Forums</a></li>
+        <% if(user){ %>
+            <li><a href="#/"></a><%= user.username%></li>
+            <li><a href ="/logout">Logout</a></li>
+        <% } else { %>
+
+            <li><a href="#/register1">Register </a> </li>
+            <li><a href="#/login">Log In</a></li>
+
+        <% } %>
+
+
+
+
+    </ul>
+</div>
+
+
+
+
+
+</ul>
+
+</div>
+</nav>

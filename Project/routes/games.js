@@ -3,28 +3,46 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 //var bcrypt = require('bcryptjs');
+var request = require('request');
 
 mongoose.connect  ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
 var db = mongoose.connection;
 
 
+router.get('/', function(req, res, next) {
+    var options1 = {
 
-db.on('error', function(err){
-    console.log('Connection error',err);
-});
-db.once('open',function(){
-    console.log('Connected to database:');
-});
+        url: 'https://api-v3.igdb.com/games/?fields=aggregated_rating,name,cover.url,genres.name,total_rating,videos.name; sort popularity desc',
+        headers: {
+            "user-key": "47a6def808445c928fc853ff4dc8b30d"
+        },
+        dataType: "jsonp",
+    };
+
+    request(options1, (error, response) => {
+        if (error) {
+            res.sendStatus(504);
+        } else {
+            let ok = JSON.parse(response.body);
+            console.log(response.data);
+            res.render('game_details', {games: ok});
 
 
-app.get('/games', function(req, res){
-    var query = req.query.search;
-    var url = '\n' + 'https://api-v3.igdb.com/games' + query + '0ef1a8b08f27e4c9283e4b1e5493f830';
-    request(url, function(error, response, body){
-        if(!error && response.statusCode == 200){
-            var data = JSON.parse(body)
-            res.render('games', {data: data});
         }
-    });
+    })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
