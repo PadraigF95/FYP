@@ -17,6 +17,17 @@ var axios = require('axios');
 const flatted = require('flatted');
 var request = require('request');
 
+const {
+    updateProfile
+} = require('../controllers');
+
+const {
+    asyncErrorHandler,
+    isValidPassword,
+    changePassword
+} = require('../middleware')
+
+
 //axios({
    // url: "https://api-v3.igdb.com/search",
    // method: 'POST',
@@ -251,14 +262,17 @@ router.post('/login',
     //})
 //});
 
-
+//create isLoggedIn middleware
 router.get('/profile', function(req, res){
-        if(!req.session.user){
-            return res.status(401).send();
-        }
-
-        return res.status(200).send('This is working as intended');
+      res.render('profile')
 });
+
+router.put('/profile',
+    asyncErrorHandler(isValidPassword),
+    asyncErrorHandler(changePassword),
+    asyncErrorHandler(updateProfile)
+);
+
 
 
     router.get('/logout', function (req, res){
@@ -560,6 +574,9 @@ router.post('/resetusername/:token', function(req, res) {
     });
 
 });
+
+
+
 
 
 module.exports = router;
