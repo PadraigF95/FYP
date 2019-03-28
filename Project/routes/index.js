@@ -17,17 +17,6 @@ var axios = require('axios');
 const flatted = require('flatted');
 var request = require('request');
 
-const {
-    updateProfile
-} = require('../controllers');
-
-const {
-    asyncErrorHandler,
-    isValidPassword,
-    changePassword
-} = require('../middleware')
-
-
 //axios({
    // url: "https://api-v3.igdb.com/search",
    // method: 'POST',
@@ -50,25 +39,8 @@ const {
 mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
 
-var options = {
 
-    url: 'https://api-v3.igdb.com/games/?fields=aggregated_rating,name,cover.url,genres.name,summary,screenshots.url,total_rating,videos.name; sort popularity desc' ,
 
-    headers: {
-        "user-key":"47a6def808445c928fc853ff4dc8b30d"
-    },
-    dataType:"jsonp",
-};
-
-var options2 ={
-
-    url: 'https://api-v3.igdb.com/pulses/?fields=author,image,title,summary; sort popularity desc' ,
-    headers: {
-        "user-key":"47a6def808445c928fc853ff4dc8b30d"
-    },
-    dataType:"jsonp",
-
-};
 
 /*var options2 = {
 
@@ -83,56 +55,58 @@ var options2 ={
 router.get('/', function(req, res, next) {
 
 
-    request(options,(error, response) => {
-        if (error) {
-            res.sendStatus(504);
-        } else {
-            let games = JSON.parse(response.body);
-            console.log(response.data);
-            res.render('index', { title: 'Hello World', user: req.user, games:games});
-        }
-    })
-});
-
-
-
-
-
-
-
-/*var options2 = {
-
-    url: 'https://api-v3.igdb.com/games/?fields=name,release_date,reviews',
-    headers: {
-        "user-key":"47a6def808445c928fc853ff4dc8b30d"
-    },
-    dataType:"jsonp",
-};*/
-
-router.get('/games', function(req, res, next) {
-    var options1 = {
-
-        url: 'https://api-v3.igdb.com/games/?fields=aggregated_rating,name,cover.url,genres.name,total_rating,videos.name; sort popularity desc',
+    axios({
+        url: "https://api-v3.igdb.com/games",
+        method: 'POST',
         headers: {
-            "user-key": "47a6def808445c928fc853ff4dc8b30d"
+            'Accept': 'application/json',
+            'user-key': '47a6def808445c928fc853ff4dc8b30d'
         },
-        dataType: "jsonp",
-    };
-
-    request(options1, (error, response) => {
-        if (error) {
-            res.sendStatus(504);
-        } else {
-            let ok = JSON.parse(response.body);
-            console.log(response.data);
-            res.render('game_details', {games: ok});
-
-
-        }
+        data: "fields aggregated_rating,name,cover.url,genres.name,total_rating,videos.video_id,videos.name;sort popularity desc;"
     })
+        .then(response => {
+            console.log(response.data);
+            res.render('index', { title: 'Hello World', user: req.user, games:response.data});
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+
+
+
 });
 
 
+
+
+router.get('/games', function(req, res, next){
+
+    axios({
+        url: "https://api-v3.igdb.com/pulses",
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'user-key': '47a6def808445c928fc853ff4dc8b30d'
+        },
+        data: "fields author,category,created_at,ignored,image,published_at,pulse_image,pulse_source.page.slug,summary,tags,title,uid,updated_at,videos,website.url;sort popularity desc;"
+    })
+        .then(response => {
+            console.log(response.data);
+            res.render('games', { title: 'Hello World', user: req.user, games1:response.data});
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
+
+
+router.get('/games/:id', function(req, res, next) {
+
+
+
+
+});
 
 
 
@@ -262,17 +236,14 @@ router.post('/login',
     //})
 //});
 
-//create isLoggedIn middleware
+
 router.get('/profile', function(req, res){
-      res.render('profile')
+        if(!req.session.user){
+            return res.status(401).send();
+        }
+
+        return res.status(200).send('This is working as intended');
 });
-
-router.put('/profile',
-    asyncErrorHandler(isValidPassword),
-    asyncErrorHandler(changePassword),
-    asyncErrorHandler(updateProfile)
-);
-
 
 
     router.get('/logout', function (req, res){
@@ -574,9 +545,6 @@ router.post('/resetusername/:token', function(req, res) {
     });
 
 });
-
-
-
 
 
 module.exports = router;

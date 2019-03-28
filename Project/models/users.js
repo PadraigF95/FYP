@@ -34,12 +34,6 @@ var UserSchema = new mongoose.Schema({
         type:Date
     },
 
-    image:{
-        secure_url: { type:String, default: '/images/default-profile.jpg'} ,
-        public_id: String
-
-    },
-
     isAdmin:{
         type:Boolean,
         default: false

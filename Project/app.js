@@ -9,6 +9,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require ('passport');
 var port = process.env.PORT || 8000;
+var jwt = require('jsonwebtoken');
+
 
 var mongoose = require('mongoose');
 
@@ -19,7 +21,14 @@ mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var gamesRouter = require('./routes/games');
+
 var app = express();
+
+
+
+
+
 
 
 
@@ -46,6 +55,7 @@ app.use(passport.session());
 app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/games1', gamesRouter);
 
 
 

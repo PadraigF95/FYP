@@ -1,13 +1,59 @@
 
-<div class="column" >
-    <a href ="#/games/<%= games[0].id%>">
+<body>
+<div id ="main">
 
-        <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
-        <p> <%= games[0].name %></p>
-        <p>Rating: <%=games[0].aggregated_rating%></p>
-        <p>Genre:  <%= games[0].genres[0].name %></p>
+    <h3 class="display-4">Test</h3>
+<div class="row">
 
 
+    <h3 class="display-4">Test</h3>
+    <div class="row">
 
-    </a>
+
+        <div class="column" >
+
+            <img src="<%= games1[0].image.replace('t_thumb', 't_cover_big') %>" />
+                <p><%= games1[0].summary%> </p>
+                <p> <%= games1[0].author %></p>
+            <p><%= games1[0].title%></p>
+           <a href ="<%=games1[0].website.url%>">hello</a>
+
+
+
+
+
+        </div>
+
+        <div class="column" >
+
+            <img src="<%= games1[1].image.replace('t_thumb', 't_cover_big') %>" />
+            <p><%= games1[1].summary%> </p>
+            <p> <%= games1[1].author %></p>
+            <p><%= games1[1].title%></p>
+            <a href ="<%=games1[1].website.url%>">hello</a>
+
+
+
+
+
+        </div>
+
+        <div class="column" >
+
+            <img src="<%= games1[2].image.replace('t_thumb', 't_cover_big') %>" />
+            <p><%= games1[2].summary%> </p>
+            <p> <%= games1[2].author %></p>
+            <p><%= games1[2].title%></p>
+            <a href ="<%=games1[2].website.url%>">hello</a>
+
+
+
+
+
+        </div>
+
+    </div>
 </div>
+</div>
+</body>
+</html>

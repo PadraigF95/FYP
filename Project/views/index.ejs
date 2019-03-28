@@ -32,22 +32,20 @@
 
     <ul class="nav navbar-nav navbar-left">
 
-<form action='/games/:id' method="GET" class="form-inline">
+<form action="/games_details/" method="GET" class="form-inline">
   <div class="form-group">
-      <input type="text" name="search" placeholder="search term" >
+      <input type="text" type="text" id="query" name="query" placeholder="Search.." class="form-control">
       <input type ="submit" value="search" class="btn btn-default">
   </div>
 
 </form>
 
       <li><a href="#/"> Home</a></li>
-      <li><a href="#games"> Games</a></li>
+      <li><a href="#/games"> Games</a></li>
       <li><a href="#PriceChecker">Price Checker</a></li>
-        <li><a href="#News">News</a></li>
       <li><a href="#forums"> Forums</a></li>
       <% if(user){ %>
       <li><a href="#/"></a><%= user.username%></li>
-      <li><a href="#/profile ">Profile</a></li>
         <li><a href ="/logout">Logout</a></li>
         <% } else { %>
 
@@ -80,49 +78,90 @@
 
   <div ng-view></div>
 
-  <h3 class="display-4">Recent games</h3>
-  <div class="row">
+
+    <h3 class="display-4">Games</h3>
+    <div class="row">
 
 
-    <div class="column" >
-      <a href ="#/games/<%= games[0].id%>">
-
-      <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p> <%= games[0].name %></p>
-        <p>Rating: <%=games[0].aggregated_rating%></p>
-      <p>Genre:  <%= games[0].genres[0].name %></p>
+        <h3 class="display-4">Recent games</h3>
+        <div class="row">
 
 
+            <div class="column" >
+                <a href ="/games1/<%= games[0].id%>">
 
-      </a>
+                    <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p> <%= games[0].name %></p>
+                    <p>Rating: <%=games[0].aggregated_rating%></p>
+                    <p>Genre:  <%= games[0].genres[0].name %></p>
+
+
+
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="#/games/<%= games[1].id%>">
+                    <img src="<%= games[1].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p><%= games[1].name %></p>
+                    <p>Rating: <%=games[1].aggregated_rating%></p>
+                    <p>Genre: <%= games[1].genres[0].name %></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="#/games/<%= games[2].id%>">
+                    <img src="<%= games[2].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p><%= games[2].name %></p>
+                    <p>Rating: <%=games[2].aggregated_rating%></p>
+                    <p>Genre: <%= games[2].genres[0].name %></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="#/games/<%= games[3].id%>">
+                    <img src="<%= games[3].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p>Rating: <%=games[3].aggregated_rating%></p>
+
+                    <p>Genre: <%= games[3].genres[0].name %></p>
+                    <p>Rating: <%=games[3].aggregated_rating%></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="#/games/<%= games[4].id%>">
+                    <img src="<%= games[4].cover.url.replace('t_thumb', 't_cover_big') %>" />
+
+                    <p><%= games[4].name %></p>
+                    <p>Rating: <%=games[4].aggregated_rating%></p>
+
+                    <p>Genre: <%= games[4].genres[0].name %></p>
+                </a>
+            </div>
+
+        </div>
+        </a>
+
+
+
+
+
     </div>
+    <div class ="example">
+        <div class = "test">
 
-      <div class="column" >
-          <a href ="#/games/<%= games[1].id%>">
+            <video width="320" height="240" controls>
+                <a href="https://www.youtube.com/watch?v=<%= games[0].videos[0].video_id %>">hello</a>
 
-
-              <p> <%= games[1].name %></p>
-              <p>Rating: <%=games[1].aggregated_rating%></p>
-              <p>Genre:  <%= games[0].genres[0].name %></p>
-
-
-
-          </a>
-      </div>
+            </video>
+            <video  width="320px" controls>
+            <source src="https://www.youtube.com/watch?v=<%= games[0].videos[0].video_id %>.mp4">
+            </video>
 
 
 
-
-  </div>
-</a>
-  <div class="row1">
-
-
-
-
-
+        </div>
 </div>
-
 <!-- End of main div -->
 
 
