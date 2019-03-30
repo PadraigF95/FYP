@@ -115,3 +115,23 @@ a {
   width: 20%;
   padding: 5px;
 }
+
+.edit-review-form{
+  display: none;
+}
+
+.clear-rating{
+  display: block;
+}
+.color-green{
+  color: green;
+}
+
+.color-red{
+  color: red;
+}
+
+.profile-image {
+  width: 100px;
+  border-radius: 50%;
+}

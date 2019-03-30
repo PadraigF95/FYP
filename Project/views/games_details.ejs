@@ -1,7 +1,7 @@
 <div>Game details</div>
 
-<div><%= games2.name %></div>
-<div><%= games2.publishers[0].name %></div>
-<img src="<%= games2.cover.url.replace('t_thumb', 't_cover_big') %>" />
-<p><%games2.summary%></p>
-<img src="<%= games2.screenshots.url.replace('t_thumb', 't_cover_big') %>" />
+<div><%= games[1].name %></div>
+<div><%= games.publishers[0].name %></div>
+<img src="<%= games.cover.url.replace('t_thumb', 't_cover_big') %>" />
+<p><%games.summary%></p>
+<img src="<%= games.screenshots.url.replace('t_thumb', 't_cover_big') %>" />

@@ -2,6 +2,7 @@
 
 var createError = require('http-errors');
 var express = require('express');
+var engine = require('ejs-mate');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -9,8 +10,6 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require ('passport');
 var port = process.env.PORT || 8000;
-var jwt = require('jsonwebtoken');
-
 
 var mongoose = require('mongoose');
 
@@ -22,16 +21,10 @@ mongoose.connect ('mongodb://admin:admin2019@ds251894.mlab.com:51894/final');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gamesRouter = require('./routes/games');
-
 var app = express();
 
 
-
-
-
-
-
-
+app.engine('ejs', engine);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,8 +48,7 @@ app.use(passport.session());
 app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/games1', gamesRouter);
-
+app.use('/games', gamesRouter);
 
 
 

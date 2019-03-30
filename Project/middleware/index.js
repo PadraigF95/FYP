@@ -3,7 +3,7 @@ const User = require('../models/users');
 const { cloudinary } = require('../cloudinary');
 
 
-module.exports = {
+const middleware = {
     asyncErrorHandler: (fn) =>
         (req, res, next) => {
             Promise.resolve(fn(req, res, next))
@@ -58,4 +58,6 @@ module.exports = {
     deleteProfileImage: async (req) => {
         if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);
     }
-}
+};
+
+module.exports = middleware;
