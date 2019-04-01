@@ -1,4 +1,4 @@
-<html>
+<html ng-app="GamesWebApp" xmlns:src="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" href="#" />
     <title>Games Web App</title>
@@ -20,15 +20,66 @@
 
     <style> .glyphicon-thumbs-up { cursor:pointer } </style>
 </head>
-<body>
-<% include ../partials/navbar%>
-<%- body -%>
+
+<body ng-controller="maincontroller">
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><i class="fa fa-pied-piper-alt fa-lg" style="color: white;"></i> Games Web App</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-left">
+
+            <form action="/games_details/" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" type="text" id="query" name="query" placeholder="Search.." class="form-control">
+                    <input type ="submit" value="search" class="btn btn-default">
+                </div>
+
+            </form>
+
+            <li><a href="/"> Home</a></li>
+            <li><a href="/games"> Games</a></li>
+            <li><a href="PriceChecker">Price Checker</a></li>
+            <li><a href="forums"> Forums</a></li>
+            <% if(user){ %>
+                <li><a href="/"></a><%= user.username%></li>
+                <li><a href ="/logout">Logout</a></li>
+            <% } else { %>
+
+                <li><a href="/register1">Register </a> </li>
+                <li><a href="/login">Log In</a></li>
+
+            <% } %>
 
 
 
+
+        </ul>
+    </div>
+
+
+
+
+
+    </ul>
+
+    </div>
+</nav>
+
+
+
+<%-body -%>
+
+
+
+</div>
 <footer class="text-center">
     <p>Padraig Foran Final Year Project</p>
 </footer>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>

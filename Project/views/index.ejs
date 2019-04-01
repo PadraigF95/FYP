@@ -1,57 +1,6 @@
-<% layout('layouts/boilerplate') -%>
+<% include partials/head.ejs%>
 
-
-
-<body ng-controller="maincontroller">
-<!-- NAVBAR -->
-
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/"><i class="fa fa-pied-piper-alt fa-lg" style="color: white;"></i> Games Web App</a>
-    </div>
-
-    <ul class="nav navbar-nav navbar-left">
-
-<form action='/games/:id' method="GET" class="form-inline">
-  <div class="form-group">
-      <input type="text" name="search" placeholder="search term" >
-      <input type ="submit" value="search" class="btn btn-default">
-  </div>
-
-</form>
-
-      <li><a href="#/"> Home</a></li>
-      <li><a href="#/games"> Games</a></li>
-      <li><a href="#/PriceChecker">Price Checker</a></li>
-        <li><a href="#/News">News</a></li>
-      <li><a href="#/forums"> Forums</a></li>
-      <% if(user){ %>
-      <li><a href="#/"></a><%= user.username%></li>
-      <li><a href="#/profile ">Profile</a></li>
-        <li><a href ="/logout">Logout</a></li>
-        <% } else { %>
-
-        <li><a href="#/register1">Register </a> </li>
-        <li><a href="#/login">Log In</a></li>
-
-      <% } %>
-
-
-
-
-        </ul>
-      </div>
-
-
-
-
-
-    </ul>
-
-  </div>
-</nav>
-
+<% include partials/navbar.ejs%>
 
 <!-- MAIN CONTENT AND INJECTED VIEWS -->
 
@@ -59,52 +8,216 @@
 
 
 
+  <div ng-view></div>
 
 
-  <h3 class="display-4">Recent games</h3>
-  <div class="row">
+    <h3 class="display-4">Games</h3>
+    <div class="row">
 
 
-    <div class="column" >
-      <a href ="#/games/<%= games[0].id%>">
-
-      <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
-      <p> <%= games[0].name %></p>
-        <p>Rating: <%=games[0].aggregated_rating%></p>
-      <p>Genre:  <%= games[0].genres[0].name %></p>
+        <h3 class="display-4">Recent games</h3>
+        <div class="row">
 
 
+            <div class="column" >
+                <a href ="/games1/<%= games[0].id%>">
 
-      </a>
+                    <img src="<%= games[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p> <%= games[0].name %></p>
+                    <p>Rating: <%=games[0].aggregated_rating%></p>
+                    <p>Genre:  <%= games[0].genres[0].name %></p>
+
+
+
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="/games1/<%= games[1].id%>">
+                    <img src="<%= games[1].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p><%= games[1].name %></p>
+                    <p>Rating: <%=games[1].aggregated_rating%></p>
+                    <p>Genre: <%= games[1].genres[0].name %></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="/games1/<%= games[2].id%>">
+                    <img src="<%= games[2].cover.url.replace('t_thumb', 't_cover_big') %>" />
+                    <p><%= games[2].name %></p>
+                    <p>Rating: <%=games[2].aggregated_rating%></p>
+                    <p>Genre: <%= games[2].genres[0].name %></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="/games1/<%= games[3].id%>">
+                    <img src="<%= games[3].cover.url.replace('t_thumb', 't_cover_big') %>" />
+
+                    <p><%= games[3].name %></p>
+
+
+
+                    <p>Rating: <%=games[3].total_rating%></p>
+                    <p>Genre: <%= games[3].genres[0].name %></p>
+                </a>
+            </div>
+
+            <div class="column">
+                <a href ="/games1/<%= games[4].id%>">
+                    <img src="<%= games[4].cover.url.replace('t_thumb', 't_cover_big') %>" />
+
+                    <p><%= games[4].name %></p>
+
+                    <p>Rating: <%=games[4].total_rating%></p>
+                    <p>Genre: <%= games[4].genres[0].name %></p>
+                </a>
+            </div>
+
+        </div>
+        </a>
+
+
+
+
+
+    </div>
+    <div class ="video">
+        <div class = "test">
+
+
+
+
+        <h2><%= games[0].name%></h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[0].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+</div>
+
+
+
+    <div class ="video">
+        <div class = "test">
+            <h2><%= games[1].name%></h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[1].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+
+
     </div>
 
-      <div class="column" >
-          <a href ="#/games/<%= games[1].id%>">
+    <div class ="video">
+        <div class = "test">
 
-
-              <p> <%= games[1].name %></p>
-              <p>Rating: <%=games[1].aggregated_rating%></p>
-              <p>Genre:  <%= games[0].genres[0].name %></p>
-
-
-
-          </a>
-      </div>
+            <h2><%= games[2].name%></h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[2].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
 
 
 
+    </div>
 
-  </div>
-</a>
-  <div class="row1">
-
-
-
+    <div class ="video">
+        <div class = "test">
+            <h2><%= games[3].name%></h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[3].videos[0].video_id %>" frameborder="0"    allowfullscreen></iframe>
+            </div>
+        </div>
 
 
 </div>
+    </div>
+<h2>Latest News</h2>
+
+    <div class="news" >
+
+        <img src="<%= games1[0].image %>" />
+        <p><%= games1[0].summary%> </p>
+        <p> <%= games1[0].author %></p>
+        <p><%= games1[0].title%></p>
+
+
+
+
+
+
+    </div>
+
+
+    <div class="news" >
+
+        <img src="<%= games1[1].image %>" />
+        <p><%= games1[1].summary%> </p>
+        <p> <%= games1[1].author %></p>
+        <p><%= games1[1].title%></p>
+
+
+
+
+
+
+    </div>
+
+
+    <div class="news" >
+
+        <img src="<%= games1[2].image %>" />
+        <p><%= games1[2].summary%> </p>
+        <p> <%= games1[2].author %></p>
+        <p><%= games1[2].title%></p>
+
+
+
+
+
+
+    </div>
+
+
+    <div class="news" >
+
+
+        <p><%= games1[3].summary%> </p>
+        <p> <%= games1[3].author %></p>
+        <p><%= games1[3].title%></p>
+
+
+    </div>
+
+    <div class="news" >
+
+        <img src="<%= games1[4].image %>" />
+        <p><%= games1[4].summary%> </p>
+        <p> <%= games1[4].author %></p>
+        <p><%= games1[4].title%></p>
+
+
+    </div>
+
+    <div class="news" >
+
+        <img src="<%= games1[5].image %>" />
+        <p><%= games1[5].summary%> </p>
+        <p> <%= games1[5].author %></p>
+        <p><%= games1[5].title%></p>
+
+    </div>
+
+
 
 <!-- End of main div -->
 
 
 </div>
+
+<% include partials/footer.ejs %>

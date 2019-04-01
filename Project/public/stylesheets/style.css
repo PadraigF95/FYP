@@ -116,22 +116,14 @@ a {
   padding: 5px;
 }
 
-.edit-review-form{
-  display: none;
+.videos{
+
 }
 
-.clear-rating{
-  display: block;
-}
-.color-green{
-  color: green;
-}
 
-.color-red{
-  color: red;
-}
+.news{
+  float: left;
+  width: 20%;
+  padding: 5px;
 
-.profile-image {
-  width: 100px;
-  border-radius: 50%;
 }

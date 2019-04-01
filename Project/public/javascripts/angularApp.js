@@ -5,8 +5,18 @@ app.config(function($routeProvider) {
 
     // route for the home page
         .when('/', {
-            templateUrl : 'pages/index.ejs',
+            templateUrl : 'views/index.ejs',
             controller  : 'maincontroller'
+        })
+
+        .when('/games', {
+            templateUrl : 'views/games.ejs',
+            controller  : 'gamescontroller'
+        })
+
+        .when('/games1', {
+            templateUrl : 'views/games1/_id.ejs',
+            controller  : 'gamescontroller'
         })
 
         .when('/games_details', {
@@ -26,10 +36,7 @@ app.config(function($routeProvider) {
             controller  : 'logincontroller'
         })
 
-        .when('/games', {
-            templateUrl : 'pages/games.ejs',
-            controller : 'gamescontroller'
-        })
+
 
         .when('/profile', {
              templateUrl: 'pages/profile.ejs',
@@ -49,15 +56,10 @@ app.config(function($routeProvider) {
             templateUrl: 'pages/reset.ejs',
             controller: 'gamescontroller'
         })
-        .when('/games/:id', {
-            templateUrl: 'pages/games/_id.ejs',
+        .when('/games1/:id', {
+            templateUrl: 'pages/games1/_id.ejs',
             controller: 'gamescontroller'
         })
-        .when('/news', {
-            templateUrl: 'pages/news',
-            controller: 'gamescontroller'
-        })
-
 
 
 
