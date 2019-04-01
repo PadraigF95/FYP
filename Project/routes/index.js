@@ -51,7 +51,16 @@ var options= {
 
 var options1= {
 
-    url: 'https://api-v3.igdb.com/pulses/?fields=author,category,created_at,ignored,image,published_at,pulse_image,pulse_source,summary,tags,title,uid,updated_at,videos,website; sort published_at desc',
+    url: 'https://api-v3.igdb.com/pulses/?fields=author,category,created_at,ignored,image,published_at,pulse_image,pulse_source,summary,tags,title,uid,updated_at,videos,website.url; sort published_at desc',
+    headers: {
+        "user-key":"47a6def808445c928fc853ff4dc8b30d"
+    },
+    dataType:"jsonp",
+};
+
+var options3= {
+
+    url: 'https://api-v3.igdb.com/games/?fields=aggregated_rating,name,cover.url,genres.name,total_rating,videos.video_id,videos.name; sort popularity:desc; where first_release_date>1554206400;',
     headers: {
         "user-key":"47a6def808445c928fc853ff4dc8b30d"
     },
@@ -73,19 +82,25 @@ router.get('/', function(req, res, next) {
 
     request(options, (error, response) => {
         request(options1, (error, response1) => {
-            if (error) {
-                res.sendStatus(504);
-            } else {
-                let games = JSON.parse(response.body);
-                let games1 = JSON.parse(response1.body);
+            request(options3, (error, response3) => {
+
+                if (error) {
+                    res.sendStatus(504);
+                } else {
+                    let games = JSON.parse(response.body);
+                    let games1 = JSON.parse(response1.body);
+                    let coming_soon = JSON.parse(response3.body);
 
 
-                res.render('index', {user: req.user, games: games, games1:games1});
+                    res.render('index', {user: req.user, games: games, games1: games1, coming_soon: coming_soon});
 
 
-            }
+                }
+            })
         })
     })
+
+
 });
 
 
@@ -107,7 +122,7 @@ router.get('/games', function(req, res, next){
             'Accept': 'application/json',
             'user-key': '47a6def808445c928fc853ff4dc8b30d'
         },
-        data: "fields author,category,created_at,ignored,image,published_at,pulse_image,pulse_source.page.slug,summary,tags,title,uid,updated_at,videos,website.url;sort popularity desc;"
+        data: "fields author,category,created_at,ignored,image,published_at,pulse_image,pulse_source.page.slug,summary,tags,title,uid,updated_at,videos,website.url;sort published_at desc;"
     })
         .then(response => {
             console.log(response.data);
@@ -120,7 +135,7 @@ router.get('/games', function(req, res, next){
 
 
 router.get('/games1/:id', function(req, res) {
-    
+
 
     var options2= {
 
@@ -136,11 +151,11 @@ router.get('/games1/:id', function(req, res) {
         if (error) {
             res.sendStatus(504);
         } else {
-            let game = JSON.parse(response2.body);
+            let game = JSON.parse(response2.body );
+            console.log(response2.body);
 
 
-
-            res.render('_id', { game : game});
+            res.render('_id', { game : game + req.params.id });
 
 
         }

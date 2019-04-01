@@ -116,12 +116,31 @@ a {
   padding: 5px;
 }
 
-.videos{
-
+.video{
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
 .news{
+  float: left;
+  width: 20%;
+  padding: 5px;
+
+}
+
+.news2{
+  float: left;
+  width: 20%;
+  padding: 5px;
+
+}
+
+.coming_soon{
   float: left;
   width: 20%;
   padding: 5px;

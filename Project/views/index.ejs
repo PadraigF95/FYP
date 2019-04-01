@@ -11,7 +11,7 @@
   <div ng-view></div>
 
 
-    <h3 class="display-4">Games</h3>
+
     <div class="row">
 
 
@@ -75,13 +75,69 @@
             </div>
 
         </div>
-        </a>
+
+
+        <h2>Coming Soon</h2>
+
+        <div class = "coming_soon">
+
+            <img src="<%= coming_soon[0].cover.url.replace('t_thumb', 't_cover_big') %>" />
+            <p> <%= coming_soon[0].name %></p>
+            <p>Genre:  <%= coming_soon[0].genres[0].name %></p>
 
 
 
+        </div>
 
+        <div class = "coming_soon">
+
+            <img src="<%= coming_soon[1].cover.url.replace('t_thumb', 't_cover_big') %>" />
+            <p> <%= coming_soon[1].name %></p>
+            <p>Genre:  <%= coming_soon[1].genres[0].name %></p>
+
+
+
+        </div>
+        <div class = "coming_soon">
+
+            <img src="<%= coming_soon[2].cover.url.replace('t_thumb', 't_cover_big') %>" />
+            <p> <%= coming_soon[2].name %></p>
+            <p>Genre:  <%= coming_soon[2].genres[0].name %></p>
+
+
+
+        </div>
+
+        <div class = "coming_soon">
+
+            <img src="<%= coming_soon[3].cover.url.replace('t_thumb', 't_cover_big') %>" />
+            <p> <%= coming_soon[3].name %></p>
+            <p>Genre:  <%= coming_soon[3].genres[0].name %></p>
+
+
+
+        </div>
+
+        <div class = "coming_soon">
+
+            <img src="<%= coming_soon[4].cover.url.replace('t_thumb', 't_cover_big') %>" />
+            <p> <%= coming_soon[4].name %></p>
+            <p>Genre:  <%= coming_soon[4].genres[0].name %></p>
+
+
+
+        </div>
 
     </div>
+
+
+
+
+
+
+</div>
+
+<h2>Latest Videos</h2>
     <div class ="video">
         <div class = "test">
 
@@ -89,9 +145,10 @@
 
 
         <h2><%= games[0].name%></h2>
+
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[0].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+            <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[0].videos[0].video_id %>" frameborder="0"  height="240px" width="380px"  allowfullscreen></iframe>
         </div>
 
 </div>
@@ -101,9 +158,10 @@
     <div class ="video">
         <div class = "test">
             <h2><%= games[1].name%></h2>
+
             <a class="close" href="#">&times;</a>
             <div class="content">
-                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[1].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[1].videos[0].video_id %>" frameborder="0" height="240px" width="380px"  allowfullscreen></iframe>
             </div>
         </div>
 
@@ -115,9 +173,10 @@
         <div class = "test">
 
             <h2><%= games[2].name%></h2>
+
             <a class="close" href="#">&times;</a>
             <div class="content">
-                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[2].videos[0].video_id %>" frameborder="0" allowfullscreen></iframe>
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[2].videos[0].video_id %>" frameborder="0" height="240px" width="380px"  allowfullscreen></iframe>
             </div>
         </div>
 
@@ -128,9 +187,10 @@
     <div class ="video">
         <div class = "test">
             <h2><%= games[3].name%></h2>
+
             <a class="close" href="#">&times;</a>
             <div class="content">
-                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[3].videos[0].video_id %>" frameborder="0"    allowfullscreen></iframe>
+                <iframe class="embedded-video" src="https://www.youtube.com/embed/<%= games[3].videos[0].video_id %>" frameborder="0" height="240px" width="380px"   allowfullscreen></iframe>
             </div>
         </div>
 
@@ -138,13 +198,16 @@
 </div>
     </div>
 <h2>Latest News</h2>
-
+<div class="w3-container">
     <div class="news" >
 
-        <img src="<%= games1[0].image %>" />
+        <img src="<%= games1[0].image %>" alt="Image" height="350" width="350"/>
+        <a href ="<%=games1[0].website.url%>">
+            <h4><%= games1[0].title%></h4>
+        </a>
         <p><%= games1[0].summary%> </p>
         <p> <%= games1[0].author %></p>
-        <p><%= games1[0].title%></p>
+
 
 
 
@@ -156,10 +219,13 @@
 
     <div class="news" >
 
-        <img src="<%= games1[1].image %>" />
+        <img src="<%= games1[1].image %>" alt="Image" height="350" width="350" />
+        <a href ="<%=games1[1].website.url%>">
+            <h4><%= games1[1].title%></h4>
+        </a>
         <p><%= games1[1].summary%> </p>
         <p> <%= games1[1].author %></p>
-        <p><%= games1[1].title%></p>
+
 
 
 
@@ -171,10 +237,12 @@
 
     <div class="news" >
 
-        <img src="<%= games1[2].image %>" />
+        <img src="<%= games1[2].image %>"height="350" width="350"/>
+        <a href ="<%=games1[2].website.url%>">
+            <h4><%= games1[2].title%></h4>
+        </a>
         <p><%= games1[2].summary%> </p>
         <p> <%= games1[2].author %></p>
-        <p><%= games1[2].title%></p>
 
 
 
@@ -186,31 +254,93 @@
 
     <div class="news" >
 
-
+        <img src="<%= games1[3].image %>"height="350" width="350"/>
+        <a href ="<%=games1[3].website.url%>">
+            <h4><%= games1[3].title%></h4>
+        </a>
         <p><%= games1[3].summary%> </p>
         <p> <%= games1[3].author %></p>
-        <p><%= games1[3].title%></p>
 
-
-    </div>
-
-    <div class="news" >
-
-        <img src="<%= games1[4].image %>" />
-        <p><%= games1[4].summary%> </p>
-        <p> <%= games1[4].author %></p>
-        <p><%= games1[4].title%></p>
 
 
     </div>
 
-    <div class="news" >
+</div>
 
-        <img src="<%= games1[5].image %>" />
+    <div class="w3-container">
+
+    <div class="news2" >
+
+        <img src="<%= games1[5].image %>" height="350" width="350"/>
+        <a href ="<%=games1[5].website.url%>">
+            <h4><%= games1[5].title%></h4>
+        </a>
         <p><%= games1[5].summary%> </p>
         <p> <%= games1[5].author %></p>
-        <p><%= games1[5].title%></p>
 
+
+    </div>
+
+    <div class="news2" >
+
+        <img src="<%= games1[6].image %>" height="350" width="350"/>
+        <a href ="<%=games1[6].website.url%>">
+            <h4><%= games1[6].title%></h4>
+        </a>
+        <p><%= games1[6].summary%> </p>
+        <p> <%= games1[6].author %></p>
+
+    </div>
+
+    <div class="news2" >
+
+        <img src="<%= games1[7].image %>" height="350" width="350"/>
+        <a href ="<%=games1[7].website.url%>">
+            <h4><%= games1[7].title%></h4>
+        </a>
+        <p><%= games1[7].summary%> </p>
+        <p> <%= games1[7].author %></p>
+
+
+    </div>
+
+    <div class="news2" >
+
+        <img src="<%= games1[8].image %>" height="350" width="350"/>
+        <a href ="<%=games1[8].website.url%>">
+            <h4><%= games1[8].title%></h4>
+        </a>
+        <p><%= games1[8].summary%> </p>
+        <p> <%= games1[8].author %></p>
+
+
+    </div>
+
+    <div class="news2" >
+
+        <img src="<%= games1[9].image %>" height="350" width="350"/>
+        <a href ="<%=games1[9].website.url%>">
+            <h4><%= games1[9].title%></h4>
+        </a>
+        <p><%= games1[9].summary%> </p>
+        <p> <%= games1[9].author %></p>
+
+
+
+    </div>
+
+        <div class="news2" >
+
+            <img src="<%= games1[4].image %>" height="350" width="350"/>
+            <a href ="<%=games1[4].website.url%>">
+                <h4><%= games1[4].title%></h4>
+            </a>
+            <p><%= games1[4].summary%> </p>
+            <p> <%= games1[4].author %></p>
+
+
+
+        </div>
     </div>
 
 
@@ -220,4 +350,10 @@
 
 </div>
 
-<% include partials/footer.ejs %>
+
+
+
+
+
+
+</div>

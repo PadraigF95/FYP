@@ -1,0 +1,57 @@
+ axios({
+        url: "https://api-v3.igdb.com/games",
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'user-key': '47a6def808445c928fc853ff4dc8b30d'
+        },
+        data: "fields aggregated_rating,name,cover.url,genres.name,total_rating,videos.video_id,videos.name;sort popularity desc;"
+    })
+        .then(response => {
+            console.log(response.data);
+            res.render('index', { title: 'Hello World', user: req.user, games:response.data});
+        })
+
+        .catch(err => {
+            console.error(err);
+        });
+
+
+
+
+});
+
+
+
+
+var options= {
+
+    url: 'https://api-v3.igdb.com/reviews/?fields=url,game,content; sort popularity desc',
+    headers: {
+        "user-key":"47a6def808445c928fc853ff4dc8b30d"
+    },
+    dataType:"jsonp",
+};
+
+request(options, (error, response) => {
+if(error){
+ res.sendStatus(504);
+}else{
+let options = JSON.parse(response.body);
+
+
+var options1= {
+
+    url: 'https://api-v3.igdb.com/pulses/?fields=author,category,created_at,ignored,image,published_at,pulse_image,pulse_source,summary,tags,title,uid,updated_at,videos,website; sort popularity desc',
+    headers: {
+        "user-key":"47a6def808445c928fc853ff4dc8b30d"
+    },
+
+request(options, (error, response) => {
+if(error){
+ res.sendStatus(504);
+}else{
+let options = JSON.parse(response.body);
+
+    dataType:"jsonp",
+};
