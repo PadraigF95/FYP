@@ -57,7 +57,7 @@ app.use(passport.session());
 app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/games1', gamesRouter);
+app.use('/games', gamesRouter);
 
 
 

@@ -139,7 +139,7 @@ router.get('/games1/:id', function(req, res) {
 
     var options2= {
 
-        url:  'https://api-v3.igdb.com/games/'+ req.params.id +'/?fields=aggregated_rating,name,cover.url,genres.name,summary,screenshots.url,platforms.name,artworks.url,platforms.platform_logo.url,total_rating,videos.video_id,videos.name; ',
+        url:  'https://api-v3.igdb.com/games/'+ req.params.id +'/?fields=aggregated_rating,name,cover.url,genres.name,summary,screenshots.url,platforms.name,artworks.url,platforms.platform_logo.url,total_rating,videos.video_id,videos.name ',
         headers: {
             "user-key":"47a6def808445c928fc853ff4dc8b30d",
 
@@ -152,10 +152,10 @@ router.get('/games1/:id', function(req, res) {
             res.sendStatus(504);
         } else {
             let game = JSON.parse(response2.body );
-            console.log(response2.body);
+            console.log(response2.body );
 
 
-            res.render('_id', { game : game + req.params.id });
+            res.render('_id', { game : game[0] });
 
 
         }
