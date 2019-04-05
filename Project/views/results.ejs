@@ -1,12 +1,48 @@
-<title>Results Page</title>
-<body>
-<h1>Results Page</h1>
-<table border = "2">
-    <tr>
-        <th>Year</th>
-        <th>Name</th>
-        <th>Cover</th>
-        <th>IMDB Link</th>
-    </tr>
-</table>
-</body>
+<div>Result Page</div>
+
+
+
+<div class ="result">
+<p><%=search[0].name%></p>
+
+<p><%= search[0].summary%></p>
+<a href ="/games1/<%= search[0].id%>">
+<img src="<%= search[0].cover.url.replace('t_thumb', 't_cover_big') %>"style="max-width:100%;height:auto;" />
+</a>
+</div>
+
+<div class ="result">
+    <p><%=search[1].name%></p>
+
+    <p><%= search[1].summary%></p>
+    <a href ="/games1/<%= search[1].id%>">
+        <img src="<%= search[1].cover.url.replace('t_thumb', 't_cover_big') %>"style="max-width:100%;height:auto;" />
+    </a>
+</div>
+
+<div class ="result">
+    <p><%=search[2].name%></p>
+
+    <p><%= search[2].summary%></p>
+    <a href ="/games1/<%= search[2].id%>">
+        <img src="<%= search[2].cover.url.replace('t_thumb', 't_cover_big') %>"style="max-width:100%;height:auto;" />
+    </a>
+</div>
+
+<div class ="result">
+    <p><%=search[3].name%></p>
+
+    <p><%= search[3].summary%></p>
+    <a href ="/games1/<%= search[3].id%>">
+        <img src="<%= search[3].cover.url.replace('t_thumb', 't_cover_big') %>"style="max-width:100%;height:auto;" />
+    </a>
+</div>
+
+<div class ="result">
+    <p><%=search[4].name%></p>
+
+    <p><%= search[4].summary%></p>
+    <a href ="/games1/<%= search[4].id%>">
+        <img src="<%= search[4].cover.url.replace('t_thumb', 't_cover_big') %>"style="max-width:100%;height:auto;" />
+    </a>
+</div>

@@ -7,7 +7,11 @@
         <ul class="nav navbar-nav navbar-left">
 
 
-            <input type="text" name="search" placeholder="search term" >
+            <form action="/results" method="get">
+                <input type="text" name="search" placeholder="search game">
+                <input type="submit" value="Search">
+            </form>
+
             <li><a href="#/"> Home</a></li>
             <li><a href="games"> Games</a></li>
             <li><a href="PriceChecker">Price Checker</a></li>
@@ -28,6 +32,7 @@
 
 
         </ul>
+
     </div>
 
 

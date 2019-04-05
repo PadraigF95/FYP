@@ -166,10 +166,53 @@ router.get('/games1/:id', function(req, res) {
 
 
 
+router.get('/results',  function(req,res){
+
+
+    if( req.query.search === undefined || "" ){
+        console.log('Empty String received');
+        var errorMessage = "No results found";
+        res.send(errorMessage);
+
+    } else {
+
+
+        var search= {
+
+            url: 'https://api-v3.igdb.com/games/?search='+ req.query.search+'&fields=name,cover.url,summary;',
+            headers: {
+                "user-key":"47a6def808445c928fc853ff4dc8b30d"
+            },
+            dataType:"jsonp",
+        };
+
+        request(search, (error, response4) => {
+            if (error) {
+                res.sendStatus(504);
+            } else {
+                let search = JSON.parse(response4.body );
+                console.log(req.query.search );
+
+
+                res.render('results', { search : search });
+
+
+            }
+        })
 
 
 
+    }
 
+});
+
+
+router.get('/searchresults',    function(req,res){
+
+
+
+    res.render()
+});
 
 
 
