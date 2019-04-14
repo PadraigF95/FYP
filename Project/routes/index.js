@@ -206,13 +206,84 @@ router.get('/results',  function(req,res){
 
 });
 
+router.get('/pricechecker', function(req,res){
 
-router.get('/searchresults',    function(req,res){
+    res.render('pricechecker');
 
-
-
-    res.render()
 });
+
+
+router.get('/pricecheckerresults', function(req, res){
+
+    var prices = {
+
+        url:"https://api.isthereanydeal.com/v01/game/prices/?pretty&key=8746da4a2cc9ed6fbceaa12be510065eef1751d4&plains=" + req.query.search +"&shops=steam%2Cindiegamestand%2Camazonus",
+
+        dataType:"jsonp",
+    };
+    request(prices, (error, response5, body) => {
+        if (error) {
+            res.sendStatus(504);
+        } else {
+
+            let prices = JSON.parse(response5.body );
+            console.log('Status:', response5.statusCode);
+            console.log('Headers:', JSON.stringify(response5.headers));
+            console.log('Response:', body);
+            console.log(req.query.search );
+
+
+
+
+
+            res.render('pricecheckerresults', { prices:prices});
+
+
+        }
+    })
+
+
+
+
+
+});
+
+
+
+router.get('/findgames',  function(req,res){
+
+
+
+
+        var findgames= {
+
+            url: 'https://api-v3.igdb.com/games/?fields=name,cover.url,summary,genres.name,platforms.name,release_dates;',
+            headers: {
+                "user-key":"47a6def808445c928fc853ff4dc8b30d"
+            },
+            dataType:"jsonp",
+        };
+
+        request(findgames, (error, response6) => {
+            if (error) {
+                res.sendStatus(504);
+            } else {
+                let search = JSON.parse(response6.body );
+                console.log(req.query.search );
+
+
+                res.render('findgames', { search : search });
+
+
+            }
+        })
+
+
+
+
+
+});
+
 
 
 
@@ -226,7 +297,7 @@ router.get('/hello/:id', function(req, res){
 
 router.get('/register1', function(req, res) {
 
-    res.render('/register1');
+    res.render('register1');
 });
 
 
@@ -260,7 +331,7 @@ router.post('/register1', function(req, res) {
                     return res.status(500).send();
                 } else {
                     req.flash("Success You are now registered" + req.body.username);
-                    res.redirect('/#/');
+                    res.redirect('/');
 
 
                 }
@@ -274,7 +345,7 @@ router.post('/register1', function(req, res) {
 
 router.get('/login', function(req, res) {
 
-    res.render('/login');
+    res.render('login');
 });
 
 
@@ -327,10 +398,13 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-    passport.authenticate('local',{successRedirect:'/#/',      failureRedirect:'/#/login',failureFlash: true}),
-    function (req,res) {
+    passport.authenticate('local',{
+        successRedirect:'/',
+        failureRedirect:'/login',
+        failureFlash: true}),
+    function (req,res,err) {
+        console.log(err);
 
-        res.redirect('/#/');
     });
 
 
@@ -350,23 +424,20 @@ router.post('/login',
 
 
 router.get('/profile', function(req, res){
-        if(!req.session.user){
-            return res.status(401).send();
-        }
 
-        return res.status(200).send('This is working as intended');
+           res.send('This is working as intended');
 });
 
 
     router.get('/logout', function (req, res){
         req.logout();
         req.session.destroy();
-        res.redirect('/#/')
+        res.redirect('/')
 
     });
 
     router.get('/forgot1', function(req, res) {
-     res.render('#/forgot1', {
+     res.render('forgot1', {
             user: req.user
         });
     });
@@ -383,7 +454,7 @@ router.post('/forgot1', function(req, res, next) {
             User.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
                     req.flash('error', 'No account with that email address exists.');
-                    return res.redirect('/#/forgot1');
+                    return res.redirect('/forgot1');
                 }
 
                 user.resetPasswordToken = token;
@@ -507,12 +578,12 @@ router.post('/reset/:token', function(req, res) {
 }
 ], function(err) {
     if (err) return next(err);
-    res.redirect('/#/');
+    res.redirect('/');
 });
 });
 
 router.get('/forgotusername', function(req, res) {
-    res.render('#/forgotusername', {
+    res.render('forgotusername', {
         user: req.user
     });
 });
@@ -529,7 +600,7 @@ router.post('/forgotusername', function(req, res, next) {
             User.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
                     req.flash('error', 'No account with that email address exists.');
-                    return res.redirect('/#/forgotusername');
+                    return res.redirect('/forgotusername');
                 }
 
                 user.resetUsernameToken = token;
@@ -653,7 +724,7 @@ router.post('/resetusername/:token', function(req, res) {
         }
     ], function (err) {
         if (err) return next(err);
-        res.redirect('/#/');
+        res.redirect('/');
     });
 
 });

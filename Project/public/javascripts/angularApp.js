@@ -19,6 +19,11 @@ app.config(function($routeProvider) {
             controller  : 'gamescontroller'
         })
 
+        .when('/findgames', {
+            templateUrl : 'views/findgames',
+            controller  : 'gamescontroller'
+        })
+
         .when('/games_details', {
             templateUrl : 'pages/games_details.ejs',
             controller  : 'maincontroller'
@@ -27,39 +32,41 @@ app.config(function($routeProvider) {
 
 
         .when('/register1', {
-            templateUrl : 'pages/register1.ejs',
+            templateUrl : 'views/register1.ejs',
             controller  : 'logincontroller'
         })
 
         .when('/login', {
-            templateUrl : 'pages/login.ejs',
+            templateUrl : 'views/login.ejs',
             controller  : 'logincontroller'
         })
 
 
 
         .when('/profile', {
-             templateUrl: 'pages/profile.ejs',
+             templateUrl: 'views/profile.ejs',
             controller: 'gamescontroller'
         })
 
         .when('/settings', {
-        templateUrl: 'pages/settings.ejs',
+        templateUrl: 'views/settings.ejs',
         controller: 'gamescontroller'
          })
 
         .when('/forgot1', {
-            templateUrl: 'pages/forgot1.ejs',
+            templateUrl: 'views/forgot1.ejs',
             controller: 'gamescontroller'
         })
         .when('/reset', {
-            templateUrl: 'pages/reset.ejs',
+            templateUrl: 'views/reset.ejs',
             controller: 'gamescontroller'
         })
         .when('/games1/:id', {
             templateUrl: 'pages/games1/_id.ejs',
             controller: 'gamescontroller'
         })
+
+
 
 
 
