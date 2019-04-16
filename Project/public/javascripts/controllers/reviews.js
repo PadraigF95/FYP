@@ -5,7 +5,7 @@ module.exports = {
 
     async reviewCreate(req, res, next) {
 
-        let post = await Post.findById(req.params.id)
+        let post = await Post.findById(req.params.id);
 
         req.body.review.author = req.user._id;
 
@@ -38,5 +38,5 @@ module.exports = {
         //make sure to change post route
         res.redirect(`/posts/${req.params.id}`);
     }
-}
+};
 

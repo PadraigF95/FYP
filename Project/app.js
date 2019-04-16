@@ -12,6 +12,7 @@ var port = process.env.PORT || 8000;
 var jwt = require('jsonwebtoken');
 
 
+
 var mongoose = require('mongoose');
 
 var db = mongoose.connection;
@@ -23,6 +24,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gamesRouter = require('./routes/games');
 var engine = require('ejs-mate');
+var favourites = require('./public/javascripts/controllers/favourites');
 var app = express();
 
 
@@ -60,6 +62,7 @@ app.use('/users', usersRouter);
 app.use('/games', gamesRouter);
 
 
+favourites(app);
 
 
 // Make our db accessible to our router

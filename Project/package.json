@@ -28,6 +28,7 @@
     "http-errors": "~1.6.2",
     "igdb-api-node": "^3.1.7",
     "joi": "^13.0.1",
+    "jquery": "^3.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.1.10",
     "mongodb-uri": "^0.9.7",

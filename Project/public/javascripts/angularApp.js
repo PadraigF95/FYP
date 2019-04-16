@@ -48,6 +48,11 @@ app.config(function($routeProvider) {
             controller: 'gamescontroller'
         })
 
+        .when('/favourites', {
+            templateUrl: 'views/favourites.ejs',
+            controller: 'favourites'
+        })
+
         .when('/settings', {
         templateUrl: 'views/settings.ejs',
         controller: 'gamescontroller'

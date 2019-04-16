@@ -218,6 +218,9 @@ router.get('/pricecheckerresults', function(req, res){
     var prices = {
 
         url:"https://api.isthereanydeal.com/v01/game/prices/?pretty&key=8746da4a2cc9ed6fbceaa12be510065eef1751d4&plains=" + req.query.search +"&shops=steam%2Cindiegamestand%2Camazonus",
+        headers: {
+            "Accept":"application/json"
+        },
 
         dataType:"jsonp",
     };
@@ -230,6 +233,7 @@ router.get('/pricecheckerresults', function(req, res){
             console.log('Status:', response5.statusCode);
             console.log('Headers:', JSON.stringify(response5.headers));
             console.log('Response:', body);
+            console.log(JSON.stringify(prices));
             console.log(req.query.search );
 
 
@@ -284,7 +288,12 @@ router.get('/findgames',  function(req,res){
 
 });
 
+router.get('favourites', function(req,res){
 
+
+    res.render('favourites');
+
+});
 
 
 router.get('/hello/:id', function(req, res){
